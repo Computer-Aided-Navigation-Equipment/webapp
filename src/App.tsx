@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import UserHomePage from "./pages/UserHomePage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/user-home" element={<UserHomePage />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
