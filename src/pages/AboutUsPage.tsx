@@ -4,7 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 function AboutUsPage() {
   return (
     <MainLayout>
-      <div className="flex flex-col items-center gap-[20px] h-full">
+      <div className="flex flex-col items-center gap-[20px] h-full w-full">
         <div className="bg-[#4BB9B312] h-[170px] flex text-[40px] font-bold w-full justify-center items-center">
           About Us
         </div>
