@@ -1,2 +1,2 @@
 # webapp
-This repository contains the React code for the web application, which integrates with Firebase for backend services.
+This repository contains the React code for the web application, which integrates with MongoDB for backend services.
