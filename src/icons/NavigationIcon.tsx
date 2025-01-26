@@ -20,9 +20,9 @@ function NavigationIcon() {
           id="shape"
           d="M53.0451 78.943L62.3639 26.1367L18.5639 57.0705L40.4915 60.6179L53.0451 78.943Z"
           stroke="#4BB9B3"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
