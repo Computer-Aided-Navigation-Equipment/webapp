@@ -9,10 +9,9 @@ import SignupPage from "./pages/SignupPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import UserHomePage from "./pages/UserHomePage";
+import NavigationPage from "./pages/NavigationPage";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <Routes>
@@ -22,6 +21,7 @@ function App() {
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/user-home" element={<UserHomePage />} />
+        <Route path="/navigation" element={<NavigationPage />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
