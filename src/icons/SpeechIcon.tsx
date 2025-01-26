@@ -20,9 +20,9 @@ function SpeechIcon() {
           id="shape"
           d="M4.375 16.0417V18.9583M8.75 11.6667V23.3333M13.125 14.5833V20.4167M17.5 10.2083V24.7917M21.875 5.83333V29.1667M26.25 13.125V21.875M30.625 16.0417V18.9583"
           stroke="black"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
     </svg>

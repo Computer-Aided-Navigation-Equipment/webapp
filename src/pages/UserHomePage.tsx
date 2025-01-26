@@ -1,11 +1,13 @@
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
 import NavigationIcon from "../icons/NavigationIcon";
-import SpeechIcon from "../icons/SpeechIcon";
 import NavItem from "../components/NavItem";
 import ContactsIcon from "../icons/ContactsIcon";
 import LocationsIcon from "../icons/LocationsIcon";
 import PathIcon from "../icons/PathIcon";
+import { Textarea, TextInput } from "@mantine/core";
+import PrimaryButton from "../components/PrimaryButton";
+import SpeechIcon from "../icons/SpeechIcon";
 
 function UserHomePage() {
   return (
@@ -14,8 +16,20 @@ function UserHomePage() {
         <div className="bg-[#4BB9B312] h-[170px] flex text-[40px] font-bold w-full justify-center items-center">
           Welcome to Smart Cane website
         </div>
-        <div className="flex flex-col gap-[10px] items-center w-full">
-          <div></div>
+        <div className="flex flex-col gap-[20px] items-center w-full">
+          <div className="flex items-center gap-[10px]">
+            <span className="text-[20px]">My current location</span>
+            <Textarea
+              placeholder="Harmony Plaza, Building 12434"
+              className="min-w-[300px]"
+              rightSection={
+                <div className="mr-[10px] cursor-pointer">
+                  <SpeechIcon />
+                </div>
+              }
+            />
+            <PrimaryButton classname="min-w-auto">Feedback</PrimaryButton>
+          </div>
           <div className="flex items-center justify-around w-full">
             <NavItem text="Navigation" icon={<NavigationIcon />} />
             <NavItem text="Saved Contacts" icon={<ContactsIcon />} />
