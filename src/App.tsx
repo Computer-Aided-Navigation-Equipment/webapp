@@ -10,18 +10,49 @@ import AboutUsPage from "./pages/AboutUsPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import UserHomePage from "./pages/UserHomePage";
 import NavigationPage from "./pages/NavigationPage";
+import UnauthorizedRoute from "./routes/UnauthorizedRoute";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route
+          path="/"
+          element={
+            <UnauthorizedRoute redirectTo="/user-home">
+              <LandingPage />
+            </UnauthorizedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <UnauthorizedRoute redirectTo="/user-home">
+              <LoginPage />
+            </UnauthorizedRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <UnauthorizedRoute redirectTo="/user-home">
+              <SignupPage />
+            </UnauthorizedRoute>
+          }
+        />
         <Route path="/about-us" element={<AboutUsPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route
+          path="/reset-password"
+          element={
+            <UnauthorizedRoute redirectTo="/dashboard">
+              <ResetPasswordPage />
+            </UnauthorizedRoute>
+          }
+        />
         <Route path="/user-home" element={<UserHomePage />} />
         <Route path="/navigation" element={<NavigationPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
