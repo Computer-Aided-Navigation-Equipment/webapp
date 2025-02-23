@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { Input } from "@mantine/core";
 import MicIcon from "../icons/MicIcon";
@@ -9,6 +9,8 @@ import {
   DirectionsService,
   DirectionsRenderer,
 } from "@react-google-maps/api";
+import axiosRequest from "../utils/axiosConfig";
+import toast from "react-hot-toast";
 
 const containerStyle = {
   width: "100%",
@@ -18,11 +20,16 @@ const containerStyle = {
 function NavigationPage() {
   const [location, setLocation] = useState("");
   const [listening, setListening] = useState(false);
-  const [directionsResponse, setDirectionsResponse] = useState(null);
+  const [directionsResponse, setDirectionsResponse] = useState<any>(null);
   const [currentPosition, setCurrentPosition] = useState<any>(null);
+  const [navigationStarted, setNavigationStarted] = useState(false);
+  const [steps, setSteps] = useState<string[]>([]);
+  const [totalDistance, setTotalDistance] = useState<string>("");
+  const [totalDuration, setTotalDuration] = useState<string>("");
 
+  const [savedLocations, setSavedLocations] = useState<any[]>([]);
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyCg5OB2YaxdEZcBIRmevl_d8v_RJ58CYsk", // Replace with your API key
+    googleMapsApiKey: "AIzaSyC8HMZ7W3pj64xlKYgxPK8id395G8JQfso", // Replace with your API key
   });
 
   const handleMicClick = () => {
@@ -86,6 +93,47 @@ function NavigationPage() {
     );
   };
 
+  const startNavigation = () => {
+    if (!currentPosition || !location) {
+      alert("Please get directions first");
+      return;
+    }
+    setNavigationStarted(true);
+  };
+
+  const extractSteps = (directions: any) => {
+    const stepsArray = directions.routes[0].legs[0].steps.map(
+      (step: any) => step.instructions
+    );
+    setSteps(stepsArray);
+
+    const totalDistance = directions.routes[0].legs[0].distance.text;
+    const totalDuration = directions.routes[0].legs[0].duration.text;
+    setTotalDistance(totalDistance);
+    setTotalDuration(totalDuration);
+
+    console.log(stepsArray);
+  };
+
+  const handlSaveLocation = () => {
+    axiosRequest
+      .post("/location/create", { location })
+      .then((res) => {
+        toast.success("Location saved successfully");
+        setSavedLocations([...savedLocations, res.data.location]);
+      })
+      .catch((err) => {
+        console.error("Error saving location:", err);
+        toast.error("Failed to save location");
+      });
+  };
+
+  useEffect(() => {
+    axiosRequest.get("/location/get-user").then((res) => {
+      setSavedLocations(res.data.locations);
+    });
+  }, []);
+
   return (
     <MainLayout>
       <div className="flex flex-col items-center gap-[20px] h-full w-full">
@@ -109,50 +157,99 @@ function NavigationPage() {
               <MicIcon />
             </div>
           </div>
-
-          {/* <div className="w-full">
+          <div className="flex gap-[10px]">
             {" "}
-            <GoogleMap
-              //   mapContainerStyle={containerStyle}
-              //   center={currentPosition}
-              zoom={10}
-            ></GoogleMap>
-          </div> */}
-
-          <PrimaryButton onClick={getDirections}>Get Directions</PrimaryButton>
+            <div className="flex flex-col items-start">
+              <h2 className="text-xl font-[700] mb-2">Saved Locations:</h2>
+              <ul>
+                {savedLocations.map((location: any, index: number) => (
+                  <PrimaryButton
+                    key={index}
+                    onClick={() => {
+                      setLocation(location.location);
+                    }}
+                  >
+                    {location.location}
+                  </PrimaryButton>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col gap-[10px]">
+              <PrimaryButton onClick={getDirections}>
+                Get Directions
+              </PrimaryButton>
+              <PrimaryButton onClick={startNavigation}>Start</PrimaryButton>
+            </div>
+          </div>
         </div>
+        <div className="flex gap-[10px] w-full">
+          {steps.length > 0 && (
+            <div className="mt-4 px-[20px]">
+              <h2 className="text-xl font-[700] mb-2 text-[24px]">
+                Directions:
+              </h2>
+              <p>
+                <strong>From:</strong> Your current location
+              </p>
+              <p>
+                <strong>To:</strong> {location}
+              </p>
+              <ul className="list-disc list-inside">
+                {steps.map((step, index) => (
+                  <li key={index} dangerouslySetInnerHTML={{ __html: step }} />
+                ))}
+              </ul>
+              <div className="mt-4">
+                <p>
+                  <strong>Total Distance:</strong> {totalDistance}
+                </p>
+                <p>
+                  <strong>Total Duration:</strong> {totalDuration}
+                </p>
+              </div>
+            </div>
+          )}
+          <div className="flex flex-col gap-[10px] w-full">
+            {" "}
+            {isLoaded && currentPosition && (
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={currentPosition}
+                zoom={10}
+              >
+                {currentPosition && location && (
+                  <DirectionsService
+                    options={{
+                      origin: currentPosition,
+                      destination: location,
+                      travelMode: google.maps.TravelMode.DRIVING,
+                    }}
+                    callback={(response: any) => {
+                      if (response.status === "OK") {
+                        setDirectionsResponse(response);
+                        extractSteps(response);
+                      } else {
+                        console.error(
+                          "Directions request failed due to",
+                          response.status
+                        );
+                      }
+                    }}
+                  />
+                )}
 
-        {isLoaded && currentPosition && (
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={currentPosition}
-            zoom={10}
-          >
-            {currentPosition && location && (
-              <DirectionsService
-                options={{
-                  origin: currentPosition,
-                  destination: location,
-                  travelMode: google.maps.TravelMode.DRIVING,
-                }}
-                callback={(response: any) => {
-                  if (response.status === "OK") {
-                    setDirectionsResponse(response);
-                  } else {
-                    console.error(
-                      "Directions request failed due to",
-                      response.status
-                    );
-                  }
-                }}
-              />
+                {navigationStarted && directionsResponse && (
+                  <DirectionsRenderer directions={directionsResponse} />
+                )}
+              </GoogleMap>
             )}
-
-            {directionsResponse && (
-              <DirectionsRenderer directions={directionsResponse} />
+            {isLoaded && currentPosition && (
+              <PrimaryButton onClick={handlSaveLocation}>
+                Save Location
+              </PrimaryButton>
             )}
-          </GoogleMap>
-        )}
+          </div>
+        </div>
       </div>
     </MainLayout>
   );

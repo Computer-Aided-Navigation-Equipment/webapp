@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { Input } from "@mantine/core";
 import Container from "../components/Container";
 import PrimaryButton from "../components/PrimaryButton";
 import { useNavigate } from "react-router-dom";
+import axiosRequest from "../utils/axiosConfig";
+import toast from "react-hot-toast";
 function LoginPage() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleLogin = () => {
+    axiosRequest
+      .post("/user/login", {
+        email,
+        password,
+      })
+      .then((response) => {
+        navigate("/navigation");
+      })
+      .catch((err) => {
+        if (err.response.data.message) {
+          return toast.error(err.response.data.message);
+        }
+        toast.error("An error occurred");
+      });
+  };
   return (
     <MainLayout>
       <Container>
@@ -17,7 +37,11 @@ function LoginPage() {
             wrapper:
               "border border-[#4BB9B3E5] rounded-[28px] text-[#4BB9B3E5]",
           }}
-          placeholder="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
         <Input
           className="w-full"
@@ -26,9 +50,13 @@ function LoginPage() {
             wrapper:
               "border border-[#4BB9B3E5] rounded-[28px] text-[#4BB9B3E5]",
           }}
-          placeholder="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
-        <PrimaryButton>Login</PrimaryButton>
+        <PrimaryButton onClick={handleLogin}>Login</PrimaryButton>
         <span>
           Don't have an account?{" "}
           <span

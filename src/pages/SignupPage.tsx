@@ -4,7 +4,10 @@ import { Input, Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Container from "../components/Container";
 import PrimaryButton from "../components/PrimaryButton";
+import axiosRequest from "../utils/axiosConfig";
+import { useNavigate } from "react-router-dom";
 function SignupPage() {
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       firstName: "",
@@ -22,11 +25,16 @@ function SignupPage() {
       email: (value) =>
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) &&
         "Invalid email address",
-      phoneNumber: (value) =>
-        !/^\d{10}$/i.test(value) && "Invalid phone number",
-      password: (value) =>
-        !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(value) &&
-        "Password must contain at least 8 characters, one letter and one number",
+      phoneNumber: (value) => {
+        if (!value) {
+          return "Phone Number is required";
+        }
+      },
+      password: (value) => {
+        if (!value) {
+          return "Password is required";
+        }
+      },
       address: (value) => value.length < 1 && "Address is required",
       dateOfBirth: (value) => value.length < 1 && "Date of Birth is required",
       userType: (value) => value.length < 1 && "User Type is required",
@@ -34,7 +42,14 @@ function SignupPage() {
   });
 
   const handleUserRegister = () => {
-    console.log("User Registered");
+    axiosRequest
+      .post("/user/register", form.values)
+      .then((response) => {
+        navigate("/navigation");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <MainLayout>
@@ -71,7 +86,7 @@ function SignupPage() {
             {...form.getInputProps("dateOfBirth")}
           />
           <Select
-            data={["user", "caregiver", "admin"]}
+            data={["user", "caregiver"]}
             placeholder="User Type"
             {...form.getInputProps("userType")}
           />
