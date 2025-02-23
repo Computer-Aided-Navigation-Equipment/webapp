@@ -31,10 +31,22 @@ function UserHomePage() {
             <PrimaryButton classname="min-w-auto">Feedback</PrimaryButton>
           </div>
           <div className="flex items-center justify-around w-full">
-            <NavItem text="Navigation" icon={<NavigationIcon />} />
-            <NavItem text="Saved Contacts" icon={<ContactsIcon />} />
-            <NavItem text="Saved Locations" icon={<LocationsIcon />} />
-            <NavItem text="Begin Path" icon={<PathIcon />} />
+            <NavItem
+              text="Navigation"
+              icon={<NavigationIcon />}
+              route="/navigation"
+            />
+            <NavItem
+              text="Saved Contacts"
+              icon={<ContactsIcon />}
+              route="/contacts"
+            />
+            <NavItem
+              text="Saved Locations"
+              icon={<LocationsIcon />}
+              route="/locations"
+            />
+            <NavItem text="Begin Path" icon={<PathIcon />} route="/contacts" />
           </div>
         </div>
       </div>
