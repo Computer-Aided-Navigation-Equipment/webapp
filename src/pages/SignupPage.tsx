@@ -1,11 +1,12 @@
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
-import { Input, Select, TextInput } from "@mantine/core";
+import { Center, Input, Loader, Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Container from "../components/Container";
 import PrimaryButton from "../components/PrimaryButton";
 import axiosRequest from "../utils/axiosConfig";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 function SignupPage() {
   const navigate = useNavigate();
   const form = useForm({
@@ -41,57 +42,72 @@ function SignupPage() {
     },
   });
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const handleUserRegister = () => {
+    setIsLoading(true);
     axiosRequest
       .post("/user/register", form.values)
       .then((response) => {
         navigate("/navigation");
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data.message) {
+          return toast.error(err.response.data.message);
+        }
+        toast.error("An error occurred while signing up");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
   return (
     <MainLayout>
       <Container>
         <h1 className="text-[32px] font-bold">Sign Up</h1>
-        <form
-          className="flex flex-col gap-[10px]"
-          onSubmit={form.onSubmit(handleUserRegister)}
-        >
-          <div className="flex items-center gap-[10px]">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <form
+            className="flex flex-col gap-[10px]"
+            onSubmit={form.onSubmit(handleUserRegister)}
+          >
+            <div className="flex items-center gap-[10px]">
+              <TextInput
+                placeholder="First Name"
+                {...form.getInputProps("firstName")}
+              />
+              <TextInput
+                placeholder="Last Name"
+                {...form.getInputProps("lastName")}
+              />
+            </div>
+            <TextInput placeholder="Email" {...form.getInputProps("email")} />
             <TextInput
-              placeholder="First Name"
-              {...form.getInputProps("firstName")}
+              placeholder="Phone Number"
+              {...form.getInputProps("phoneNumber")}
             />
             <TextInput
-              placeholder="Last Name"
-              {...form.getInputProps("lastName")}
+              placeholder="Password"
+              type="password"
+              {...form.getInputProps("password")}
             />
-          </div>
-          <TextInput placeholder="Email" {...form.getInputProps("email")} />
-          <TextInput
-            placeholder="Phone Number"
-            {...form.getInputProps("phoneNumber")}
-          />
-          <TextInput
-            placeholder="Password"
-            type="password"
-            {...form.getInputProps("password")}
-          />
-          <TextInput placeholder="Address" {...form.getInputProps("address")} />
-          <TextInput
-            placeholder="Date of Birth"
-            type="date"
-            {...form.getInputProps("dateOfBirth")}
-          />
-          <Select
-            data={["user", "caregiver"]}
-            placeholder="User Type"
-            {...form.getInputProps("userType")}
-          />
-          <PrimaryButton type="submit">Sign Up</PrimaryButton>
-        </form>
+            <TextInput
+              placeholder="Address"
+              {...form.getInputProps("address")}
+            />
+            <TextInput
+              placeholder="Date of Birth"
+              type="date"
+              {...form.getInputProps("dateOfBirth")}
+            />
+            <Select
+              data={["user", "caregiver"]}
+              placeholder="User Type"
+              {...form.getInputProps("userType")}
+            />
+            <PrimaryButton type="submit">Sign Up</PrimaryButton>
+          </form>
+        )}
       </Container>
     </MainLayout>
   );

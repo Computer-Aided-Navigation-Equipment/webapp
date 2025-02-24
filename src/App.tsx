@@ -12,6 +12,7 @@ import UserHomePage from "./pages/UserHomePage";
 import NavigationPage from "./pages/NavigationPage";
 import UnauthorizedRoute from "./routes/UnauthorizedRoute";
 import ProfilePage from "./pages/ProfilePage";
+import ContactsPage from "./pages/ContactsPage";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         <Route path="/user-home" element={<UserHomePage />} />
         <Route path="/navigation" element={<NavigationPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

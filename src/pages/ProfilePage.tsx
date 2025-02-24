@@ -5,6 +5,8 @@ import { Select, TextInput } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "@mantine/form";
 import axiosRequest from "../utils/axiosConfig";
+import PrimaryButton from "../components/PrimaryButton";
+import Cookies from "js-cookie";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -40,18 +42,23 @@ function ProfilePage() {
 
   useEffect(() => {
     axiosRequest.get("/user/profile").then((response) => {
-      setUser(response.data);
-      form.setValues(response.data);
+      setUser(response.data.user);
+      form.setValues(response.data.user);
     });
   }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    Cookies.remove("refreshToken");
+    navigate("/login");
+  };
   return (
     <MainLayout>
       {" "}
       <Container>
         <h1 className="text-[36px] font-bold">Profile</h1>
         <img />
-        <div className="flex justify-between w-full">
-          <div className="flex flex-col">
+        <div className="flex justify-between w-full items-center gap-[20px]">
+          <div className="flex flex-col items-center">
             <span>User Information</span>
             <form className="flex flex-col gap-[10px] w-full">
               <TextInput
@@ -83,7 +90,13 @@ function ProfilePage() {
               />
             </form>
           </div>
+          <div className="flex flex-col items-center">
+            <span>Device information</span>
+            <div className="flex flex-col gap-[10px] w-full"></div>
+          </div>
         </div>
+
+        <PrimaryButton onClick={handleLogout}>Logout</PrimaryButton>
       </Container>
     </MainLayout>
   );
