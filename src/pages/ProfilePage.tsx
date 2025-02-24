@@ -7,6 +7,8 @@ import { useForm } from "@mantine/form";
 import axiosRequest from "../utils/axiosConfig";
 import PrimaryButton from "../components/PrimaryButton";
 import Cookies from "js-cookie";
+import UserIcon from "../icons/UserIcon";
+import toast from "react-hot-toast";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -51,16 +53,35 @@ function ProfilePage() {
     Cookies.remove("refreshToken");
     navigate("/login");
   };
+
+  const handleSaveChanges = () => {
+    axiosRequest
+      .post("/user/update", form.values)
+      .then((response) => {
+        toast.success("Profile updated successfully");
+      })
+      .catch((err) => {
+        if (err.response.data.message) {
+          return toast.error(err.response.data.message);
+        }
+        toast.error("Error updating profile");
+      });
+  };
   return (
     <MainLayout>
       {" "}
       <Container>
         <h1 className="text-[36px] font-bold">Profile</h1>
-        <img />
-        <div className="flex justify-between w-full items-center gap-[20px]">
-          <div className="flex flex-col items-center">
-            <span>User Information</span>
-            <form className="flex flex-col gap-[10px] w-full">
+        <div className="h-[100px] w-[100px] rounded-full bg-[#4BB9B3E5] flex items-center justify-center">
+          <UserIcon />
+        </div>
+        <div className="flex justify-between w-full items-start gap-[20px]">
+          <div className="flex flex-col items-center w-full">
+            <span className="text-[16px]">User Information</span>
+            <form
+              className="flex flex-col gap-[10px] w-full"
+              onSubmit={form.onSubmit(handleSaveChanges)}
+            >
               <TextInput
                 placeholder="First Name"
                 {...form.getInputProps("firstName")}
@@ -88,15 +109,25 @@ function ProfilePage() {
                 data={["user", "caregiver"]}
                 {...form.getInputProps("userType")}
               />
+              <PrimaryButton type="submit">Save Changes</PrimaryButton>
             </form>
           </div>
-          <div className="flex flex-col items-center">
-            <span>Device information</span>
-            <div className="flex flex-col gap-[10px] w-full"></div>
+          <div className="flex flex-col items-center w-full">
+            <span className="text-[16px]">Device information</span>
+            <div className="flex flex-col gap-[10px] w-full border border-[#4BB9B3E5] rounded-[28px] p-[30px]">
+              <span>Device Name</span>
+              <span>Cane connection status</span>
+              <span>Cane battery life</span>
+              <span>Latest update</span>
+              <span className="underline text-[#276BE8]">Connect Device</span>
+            </div>
           </div>
         </div>
-
-        <PrimaryButton onClick={handleLogout}>Logout</PrimaryButton>
+        <div className="flex w-full">
+          <PrimaryButton onClick={handleLogout} classname="w-full">
+            Logout
+          </PrimaryButton>
+        </div>
       </Container>
     </MainLayout>
   );
