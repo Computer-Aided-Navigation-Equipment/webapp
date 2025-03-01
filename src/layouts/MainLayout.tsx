@@ -7,7 +7,7 @@ interface MainLayoutProps {
 function MainLayout({ children }: MainLayoutProps) {
   const navigate = useNavigate();
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full flex flex-col gap-[10px]">
       <div className="bg-[#4BB9B324] h-[75px] justify-between flex px-[10px]">
         <img src={logo} alt="logo" />
         <div className="flex items-center gap-[70px] pr-[40px]">
@@ -38,9 +38,7 @@ function MainLayout({ children }: MainLayoutProps) {
         </div>
       </div>
 
-      <div className="flex justify-center items-center h-[calc(100vh-75px)]">
-        {children}
-      </div>
+      <div className="flex justify-center items-center">{children}</div>
     </div>
   );
 }
