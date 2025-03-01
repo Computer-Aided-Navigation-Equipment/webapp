@@ -13,6 +13,11 @@ import NavigationPage from "./pages/NavigationPage";
 import UnauthorizedRoute from "./routes/UnauthorizedRoute";
 import ProfilePage from "./pages/ProfilePage";
 import ContactsPage from "./pages/ContactsPage";
+import LocationsPage from "./pages/LocationsPage";
+import BeginPathPage from "./pages/BeginPathPage";
+import FeedbackPage from "./pages/FeedbackPage";
+import ManageUsersPage from "./pages/ManageUsersPage";
+import UserActivityLogPage from "./pages/UserActivityLogPage";
 
 function App() {
   return (
@@ -55,6 +60,11 @@ function App() {
         <Route path="/navigation" element={<NavigationPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/locations" element={<LocationsPage />} />
+        <Route path="/begin-path/:location" element={<BeginPathPage />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
+        <Route path="/manage-users" element={<ManageUsersPage />} />
+        <Route path="/activity-log/:userId" element={<UserActivityLogPage />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -7,7 +7,7 @@ interface Props {
   text: string;
   route: string;
 }
-function NavItem({ icon, text, route }: Props) {
+function AdminNavItem({ icon, text, route }: Props) {
   const navigate = useNavigate();
   return (
     <div
@@ -30,4 +30,4 @@ function NavItem({ icon, text, route }: Props) {
   );
 }
 
-export default NavItem;
+export default AdminNavItem;
