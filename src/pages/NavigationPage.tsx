@@ -29,7 +29,7 @@ function NavigationPage() {
 
   const [savedLocations, setSavedLocations] = useState<any[]>([]);
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyC8HMZ7W3pj64xlKYgxPK8id395G8JQfso", // Replace with your API key
+    googleMapsApiKey: import.meta.env.VITE_GOOGLEAPI, // Replace with your API key
   });
 
   const handleMicClick = () => {
@@ -99,6 +99,23 @@ function NavigationPage() {
       return;
     }
     setNavigationStarted(true);
+    console.log("total distance");
+    console.log(totalDistance);
+    axiosRequest
+      .post("/log/create", {
+        numberOfObsticles: steps.length,
+        numberOfSteps: steps.length,
+        miles: totalDistance,
+      })
+      .then((res) => {
+        toast.success("Navigation started");
+      })
+      .catch((err) => {
+        if (err.response.data.message) {
+          return toast.error(err.response.data.message);
+        }
+        toast.error("Error starting navigation");
+      });
   };
 
   const extractSteps = (directions: any) => {
