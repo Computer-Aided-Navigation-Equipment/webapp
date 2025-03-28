@@ -82,7 +82,7 @@ function UserHomePage() {
               <AdminNavItem
                 text="Feedback Submissions"
                 icon={<FeedbackIcon />}
-                route="/feedback-submissions"
+                route="/feedback-log"
               />
             </div>
           )}
