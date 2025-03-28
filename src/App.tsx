@@ -18,6 +18,8 @@ import BeginPathPage from "./pages/BeginPathPage";
 import FeedbackPage from "./pages/FeedbackPage";
 import ManageUsersPage from "./pages/ManageUsersPage";
 import UserActivityLogPage from "./pages/UserActivityLogPage";
+import UserAlertsPage from "./pages/UserAlertsPage";
+import AdminFeedbacks from "./pages/AdminFeedbacks";
 
 function App() {
   return (
@@ -65,6 +67,8 @@ function App() {
         <Route path="/feedback" element={<FeedbackPage />} />
         <Route path="/manage-users" element={<ManageUsersPage />} />
         <Route path="/activity-log/:userId" element={<UserActivityLogPage />} />
+        <Route path="/alert-log/:userId" element={<UserAlertsPage />} />
+        <Route path="/feedback-log" element={<AdminFeedbacks />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
