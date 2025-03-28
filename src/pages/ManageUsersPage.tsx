@@ -72,7 +72,7 @@ function ManageUsersPage() {
             </PrimaryButton>
             <PrimaryButton
               onClick={() => {
-                navigate("/alerts/" + selectedUser._id);
+                navigate("/alert-log/" + selectedUser._id);
               }}
             >
               User Alerts

@@ -4,6 +4,8 @@ import Container from "../components/Container";
 import { Input, Rating, SegmentedControl, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import PrimaryButton from "../components/PrimaryButton";
+import axiosRequest from "../utils/axiosConfig";
+import toast from "react-hot-toast";
 
 function FeedbackPage() {
   const form = useForm({
@@ -42,11 +44,28 @@ function FeedbackPage() {
       },
     },
   });
+
+  const handleFormSubmit = () => {
+    axiosRequest
+      .post("/feedback/create", form.values)
+      .then((res) => {
+        toast.success("Feedback submitted successfully");
+      })
+      .catch((err) => {
+        toast.error("An error occurred");
+      })
+      .finally(() => {
+        form.clearErrors();
+      });
+  };
   return (
     <MainLayout>
       <Container>
         <h1 className="text-[36px] font-[700]">Feedback</h1>
-        <form className="flex flex-col gap-[20px] w-full">
+        <form
+          className="flex flex-col gap-[20px] w-full"
+          onSubmit={form.onSubmit(handleFormSubmit)}
+        >
           <div className="flex gap-[20px] w-full">
             <div className="flex flex-col w-full gap-[10px]">
               <Input.Wrapper
@@ -58,7 +77,8 @@ function FeedbackPage() {
                   defaultValue={2}
                   value={form.values.rating}
                   onChange={(val) => {
-                    form.setFieldValue("rating", form.values.rating);
+                    console.log(val);
+                    form.setFieldValue("rating", val);
                   }}
                 />
               </Input.Wrapper>

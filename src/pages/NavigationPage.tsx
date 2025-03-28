@@ -99,13 +99,14 @@ function NavigationPage() {
       return;
     }
     setNavigationStarted(true);
-    console.log("total distance");
-    console.log(totalDistance);
+
+    console.log(totalDistance, steps.length);
     axiosRequest
       .post("/log/create", {
         numberOfObsticles: steps.length,
         numberOfSteps: steps.length,
-        miles: totalDistance,
+        miles: Number.parseFloat(totalDistance.split(" ")[0]),
+        location: location,
       })
       .then((res) => {
         toast.success("Navigation started");
@@ -128,8 +129,6 @@ function NavigationPage() {
     const totalDuration = directions.routes[0].legs[0].duration.text;
     setTotalDistance(totalDistance);
     setTotalDuration(totalDuration);
-
-    console.log(stepsArray);
   };
 
   const handlSaveLocation = () => {
@@ -142,6 +141,18 @@ function NavigationPage() {
       .catch((err) => {
         console.error("Error saving location:", err);
         toast.error("Failed to save location");
+      });
+  };
+
+  const handleSendAlert = () => {
+    axiosRequest
+      .post("/log/alert", { location })
+      .then((res) => {
+        toast.success("Alert sent successfully");
+      })
+      .catch((err) => {
+        console.error("Error sending alert:", err);
+        toast.error("Failed to send alert");
       });
   };
 
@@ -261,9 +272,14 @@ function NavigationPage() {
               </GoogleMap>
             )}
             {isLoaded && currentPosition && (
-              <PrimaryButton onClick={handlSaveLocation}>
-                Save Location
-              </PrimaryButton>
+              <div className="flex gap-[10px] items-center w-full">
+                <PrimaryButton onClick={handlSaveLocation} classname="w-full">
+                  Save Location
+                </PrimaryButton>
+                <PrimaryButton onClick={handleSendAlert} classname="w-full">
+                  Send alert
+                </PrimaryButton>
+              </div>
             )}
           </div>
         </div>
