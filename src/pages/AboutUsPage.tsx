@@ -10,9 +10,10 @@ function AboutUsPage() {
         </div>
         <div>
           <p className="text-[20px] p-[20px]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-            malesuada, eros sit amet fermentum lacinia, elit nunc ultricies
-            libero, vel ultricies odio mi in sapien. Nullam nec nunc et elit
+          At Smart CANE, our mission is to enhance the lives of individuals with visual impairments through innovative technology. Our Smart Cane combines traditional mobility assistance with modern features like obstacle detection, GPS navigation, and emergency alerts.
+          </p>
+          <p className="text-[20px] p-[20px]">
+          We're dedicated to creating accessible solutions that empower users to navigate the world with confidence and independence.
           </p>
         </div>
       </div>
