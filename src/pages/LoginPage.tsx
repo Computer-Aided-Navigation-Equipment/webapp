@@ -78,6 +78,18 @@ function LoginPage() {
                 Sign Up
               </span>
             </span>
+            <span>
+              Forgot your password?{" "}
+              <span
+                className="underline cursor-pointer text-[#4BB9B3E5]"
+                onClick={() => {
+                  navigate("/forgot-password");
+                }}
+              >
+                {" "}
+                Reset Password
+              </span>
+            </span>
           </>
         )}
       </Container>
