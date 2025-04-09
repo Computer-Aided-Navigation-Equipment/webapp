@@ -48,3 +48,6 @@ export default tseslint.config({
   },
 })
 ```
+## Wireframes ([Click here to view prototype](https://www.figma.com/proto/VxiYfqAVsU6ySVhHCIX0Cv/Smart-Cane?node-id=33-531&p=f&t=x2VfscRZgQkDS9ey-1&scaling=scale-down&content-scaling=fixed&page-id=4%3A2&starting-point-node-id=33%3A531&show-proto-sidebar=1)):
+
+![web_wireframes](https://github.com/user-attachments/assets/d2dfe5d1-acee-4d04-b671-59ef2c6621cf)
