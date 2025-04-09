@@ -14,10 +14,11 @@ import ManageUsersIcon from "../icons/ManageUsersIcon";
 import ActivityLogIcon from "../icons/ActivityLogIcon";
 import EmergencyAlertsIcon from "../icons/EmergencyAlertsIcon";
 import FeedbackIcon from "../icons/FeedbackIcon";
+import { useNavigate } from "react-router-dom";
 
 function UserHomePage() {
   const userData: any = UserData();
-  console.log(userData);
+  const navigate = useNavigate();
   return (
     <MainLayout>
       <div className="flex flex-col items-center gap-[20px] h-full w-full">
@@ -36,7 +37,14 @@ function UserHomePage() {
                 </div>
               }
             />
-            <PrimaryButton classname="min-w-auto">Feedback</PrimaryButton>
+            <PrimaryButton
+              classname="min-w-auto"
+              onClick={() => {
+                navigate("/feedback");
+              }}
+            >
+              Feedback
+            </PrimaryButton>
           </div>
           {userData && ["user", "caregiver"].includes(userData.userType) && (
             <div className="flex items-center justify-around w-full">
