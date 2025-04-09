@@ -7,7 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AboutUsPage from "./pages/AboutUsPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
+import ResetPasswordPage from "./pages/ForgotPasswordPage";
 import UserHomePage from "./pages/UserHomePage";
 import NavigationPage from "./pages/NavigationPage";
 import UnauthorizedRoute from "./routes/UnauthorizedRoute";
@@ -20,6 +20,8 @@ import ManageUsersPage from "./pages/ManageUsersPage";
 import UserActivityLogPage from "./pages/UserActivityLogPage";
 import UserAlertsPage from "./pages/UserAlertsPage";
 import AdminFeedbacks from "./pages/AdminFeedbacks";
+import ResetpasswordWithTokenPage from "./pages/ResetPasswordWithTokenPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App() {
   return (
@@ -51,13 +53,18 @@ function App() {
         />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route
-          path="/reset-password"
+          path="/forgot-password"
           element={
             <UnauthorizedRoute redirectTo="/dashboard">
-              <ResetPasswordPage />
+              <ForgotPasswordPage />
             </UnauthorizedRoute>
           }
         />
+        <Route
+          path="/reset-password/:token"
+          element={<ResetpasswordWithTokenPage />}
+        />
+
         <Route path="/user-home" element={<UserHomePage />} />
         <Route path="/navigation" element={<NavigationPage />} />
         <Route path="/profile" element={<ProfilePage />} />

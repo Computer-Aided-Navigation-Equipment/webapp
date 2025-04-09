@@ -8,8 +8,10 @@ import PathIcon from "../icons/PathIcon";
 import { Textarea, TextInput } from "@mantine/core";
 import PrimaryButton from "../components/PrimaryButton";
 import SpeechIcon from "../icons/SpeechIcon";
+import { useNavigate } from "react-router-dom";
 
 function AdminHomePage() {
+  const navigate = useNavigate();
   return (
     <MainLayout>
       <div className="flex flex-col items-center gap-[20px] h-full w-full">
@@ -28,7 +30,14 @@ function AdminHomePage() {
                 </div>
               }
             />
-            <PrimaryButton classname="min-w-auto">Feedback</PrimaryButton>
+            <PrimaryButton
+              classname="min-w-auto"
+              onClick={() => {
+                navigate("/feedback");
+              }}
+            >
+              Feedback
+            </PrimaryButton>
           </div>
           <div className="flex items-center justify-around w-full">
             <NavItem
