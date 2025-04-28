@@ -3,27 +3,30 @@ import React from "react";
 function CaregiverIcon() {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={22}
-      height={22}
-      viewBox="0 0 22 22"
-      fill="none"
+      xmlns="http://www.w3.org/2000/svg"  // SVG namespace for compatibility
+      width={22}  // Set the width of the icon
+      height={22} // Set the height of the icon
+      viewBox="0 0 22 22"  // Define the view box for the icon, which scales the content within 22x22 units
+      fill="none"  // No default fill applied to the SVG elements
     >
-      <g clipPath="url(#clip0_122_2130)">
+      <g clipPath="url(#clip0_122_2130)">  // Apply the clip path defined below to restrict the drawing area
+        {/* First path for the icon's outer shape, with a pinkish color */}
         <path
           d="M21.2143 8.61141L18.133 3.17427L14.0812 5.56284V0.785697H7.91877V5.56284L3.86694 3.17427L0.785714 8.61141L4.83753 11L0.785714 13.3886L3.86694 18.8257L7.91877 16.4371V21.2143H14.0812V16.4371L18.133 18.8257L21.2143 13.3886L17.1625 11L21.2143 8.61141Z"
-          fill="#FF7972"
+          fill="#FF7972"  // Set the fill color for this path to a pinkish tone
         />
+        {/* Second path for the inner details of the icon, filled with black */}
         <path
-          fillRule="evenodd"
-          clipRule="evenodd"
+          fillRule="evenodd"  // Define fill rule for complex paths
+          clipRule="evenodd"  // Define clipping rule for complex paths
           d="M6.99587 1.17855C6.99587 0.636131 7.43561 0.196411 7.97802 0.196411H14.022C14.5644 0.196411 15.0041 0.636131 15.0041 1.17855V4.06997L17.5045 2.62491C17.974 2.35351 18.5748 2.51416 18.8461 2.98375L21.8682 8.21177C21.9986 8.4373 22.0339 8.70537 21.9667 8.95702C21.8994 9.20866 21.7349 9.42327 21.5092 9.55362L19.0067 11L21.5092 12.4463C21.7349 12.5767 21.8994 12.7913 21.9667 13.0429C22.0339 13.2946 21.9986 13.5627 21.8682 13.7882L18.8461 19.0162C18.5748 19.4859 17.974 19.6465 17.5045 19.3751L15.0041 17.93V20.8214C15.0041 21.3639 14.5644 21.8036 14.022 21.8036H7.97802C7.43561 21.8036 6.99587 21.3639 6.99587 20.8214V17.93L4.49557 19.3751C4.02597 19.6465 3.42526 19.4859 3.15381 19.0162L0.131837 13.7882C0.0014752 13.5627 -0.0339531 13.2946 0.0333462 13.0429C0.100646 12.7913 0.26516 12.5767 0.490693 12.4463L2.99329 11L0.490694 9.55362C0.26516 9.42327 0.100646 9.20866 0.0333463 8.95702C-0.0339531 8.70537 0.0014752 8.4373 0.131837 8.21177L3.15381 2.98375C3.42526 2.51416 4.02597 2.35351 4.49557 2.62491L6.99587 4.06997V1.17855ZM8.96016 2.1607V5.77197C8.96016 6.12293 8.77289 6.44722 8.4689 6.62263C8.16492 6.79805 7.79044 6.79792 7.48657 6.6223L4.36296 4.81702L2.324 8.34443L5.4475 10.1496C5.75116 10.3251 5.93819 10.6493 5.93819 11C5.93819 11.3507 5.75116 11.6748 5.4475 11.8503L2.324 13.6555L4.36296 17.1829L7.48657 15.3777C7.79044 15.202 8.16492 15.2019 8.4689 15.3773C8.77289 15.5527 8.96016 15.8771 8.96016 16.228V19.8393H13.0398V16.228C13.0398 15.8771 13.2271 15.5527 13.5311 15.3773C13.8351 15.2019 14.2096 15.202 14.5134 15.3777L17.6371 17.1829L19.676 13.6555L16.5525 11.8503C16.2489 11.6748 16.0619 11.3507 16.0619 11C16.0619 10.6493 16.2489 10.3251 16.5525 10.1496L19.676 8.34443L17.6371 4.81702L14.5134 6.6223C14.2096 6.79792 13.8351 6.79805 13.5311 6.62263C13.2271 6.44722 13.0398 6.12293 13.0398 5.77197V2.1607H8.96016Z"
-          fill="black"
+          fill="black"  // Set the fill color for this path to black
         />
       </g>
       <defs>
+        {/* Define the clipping path to restrict the icon to a 22x22 square */}
         <clipPath id="clip0_122_2130">
-          <rect width={22} height={22} fill="white" />
+          <rect width={22} height={22} fill="white" />  {/* A 22x22 square used to clip the content */}
         </clipPath>
       </defs>
     </svg>
