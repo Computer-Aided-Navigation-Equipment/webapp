@@ -58,7 +58,7 @@ function AdminHomePage() {
             <NavItem
               text="Begin Path"
               icon={<PathIcon />}
-              route="/begin-path/tunis"
+              route="/begin-path/bahrain"
             />
           </div>
         </div>
