@@ -26,19 +26,20 @@ function AdminFeedbacks() {
         <h1 className="text-[36px] font-[700]">Feedback Submissions</h1>
         <span>Feedback List:</span>
         <div className="h-[500px] overflow-y-auto bg-[#D9D9D980] rounded-[15px]">
-          {feedbacks.map((feedback: any) => (
-            <div key={feedback.id} className="p-[15px]">
-              {new Date(feedback.createdAt).toLocaleString()} |{" "}
-              {feedback.userId.firstName} {feedback.userId.lastName} :{" "}
-              {feedback.thoughts} |{" "}
-              <span
-                className="cursor-pointer"
-                onClick={() => handleViewClick(feedback)}
-              >
-                [view]
-              </span>
-            </div>
-          ))}
+          {feedbacks &&
+            feedbacks.map((feedback: any) => (
+              <div key={feedback.id} className="p-[15px]">
+                {new Date(feedback.createdAt).toLocaleString()} |{" "}
+                {feedback.userId?.firstName} {feedback.userId?.lastName} :{" "}
+                {feedback.thoughts} |{" "}
+                <span
+                  className="cursor-pointer"
+                  onClick={() => handleViewClick(feedback)}
+                >
+                  [view]
+                </span>
+              </div>
+            ))}
         </div>
       </Container>
 
